@@ -1,0 +1,11 @@
+VK_GROUP_TOKEN=
+VK_USER_TOKEN=
+
+VK_APP_SECURE_KEY=
+VK_APP_SERVICE_KEY=
+
+VK_API_VERSION=5.199
+
+VK_API_BASE_URL=https://api.vk.com/method
+VK_API_AUTH_URL=https://oauth.vk.com
+VK_API_AUTH_REDIRECT_URL=https://oauth.vk.com/blank.html
