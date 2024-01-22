@@ -1,6 +1,13 @@
+fastapi
+fastapi-filter[sqlalchemy]
+sqlalchemy
+alembic
+greenlet
+asyncpg
+uvicorn[standard]
 pydantic
 pydantic_settings
-dotenv
+dotenv-python
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
