@@ -23,7 +23,7 @@ class Stats(_Base):
 
     async def get_stats(
         self, request: schemas.VKStatsGetRequest
-    ) -> Optional[schemas.VKStatsGetResponse]:
+    ) -> schemas.VKStatsGetResponse:
         """
         Makes request to VK API and returns VKStatsGetResponse object.
 

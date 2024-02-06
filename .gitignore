@@ -1,4 +1,6 @@
 # Custom
+token.json
+credentials.json
 .vscode/
 pgdata/
 postgresql-test/
