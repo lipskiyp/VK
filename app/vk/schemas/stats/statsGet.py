@@ -24,12 +24,6 @@ class VKStatsGetRequest(BaseModel):
         from_attributes = True
 
 
-class Activity(BaseModel):
-    comments: Optional[int] = None
-    likes: Optional[int] = None
-    subscribed: Optional[int] = None
-
-
 class City(BaseModel):
     count: int
     name: str
@@ -43,17 +37,47 @@ class Country(BaseModel):
     value: int
 
 
+class Sex(BaseModel):
+    value: str
+    count: int
+
+
+class Age(BaseModel):
+    value: str
+    count: int
+
+
+class SexAge(BaseModel):
+    value: str
+    count: int
+
+
+class Activity(BaseModel):
+    comments: Optional[int] = None
+    copies: Optional[int] = None  # Рассказали друзьям
+    hidden: Optional[int] = None
+    likes: Optional[int] = None
+    subscribed: Optional[int] = None
+    unsubscribed: Optional[int] = None
+
+
 class Reach(BaseModel):
-    cities: List[City]
-    countries: List[Country]
+    age: Optional[List[Age]] = []
+    cities: Optional[List[City]] = []
+    countries: Optional[List[Country]] = []
+    sex: Optional[List[Sex]] = []
+    sex_age: Optional[List[SexAge]] = []
     mobile_reach: int
     reach: int
     reach_subscribers: int
 
 
 class Visitors(BaseModel):
-    cities: List[City]
-    countries: List[Country]
+    age: Optional[List[Age]] = []
+    cities: Optional[List[City]] = []
+    countries: Optional[List[Country]] = []
+    sex: Optional[List[Sex]] = []
+    sex_age: Optional[List[SexAge]] = []
     mobile_views: int
     views: int
     visitors: int
@@ -61,10 +85,10 @@ class Visitors(BaseModel):
 
 class Stats(BaseModel):
     activity: Optional[Activity] = []
+    reach: Optional[Reach] = []
+    visitors: Optional[Visitors] = []
     period_from: int
     period_to: int
-    reach: Reach
-    visitors: Visitors
 
 
 class VKStatsGetResponse(BaseModel):

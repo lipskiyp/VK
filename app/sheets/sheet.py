@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = ""
-SAMPLE_RANGE_NAME = "Паблик!A2:A13"
+SAMPLE_RANGE_NAME = "Паблик!B17:B"
 
 
 # TOKEN and CREDENTIALS
@@ -20,18 +20,16 @@ CREDENTIALS_PATH = "app/sheets/credentials.json"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 
-class GoogleSheet:
+class GoogleAuth:
     def __init__(
         self,
         scopes: List[str] = SCOPES,
-        spreadsheet_id: Optional[str] = SAMPLE_SPREADSHEET_ID,
         token_path: Optional[str] = TOKEN_PATH,
         credentials_path: Optional[str] = CREDENTIALS_PATH
     ):
         """
         GoogleSheets API Interface.
         """
-        self.spreadsheet_id = spreadsheet_id
         self.token_path = token_path
         self.credentials_path = credentials_path
 
@@ -40,7 +38,6 @@ class GoogleSheet:
         self.scopes = scopes
 
         self.init_authorization()
-        self.init_sheet()
 
 
     def init_authorization(self) -> None:
@@ -79,32 +76,40 @@ class GoogleSheet:
         self.creds = flow.run_local_server(port=0)
 
 
-    def init_sheet(self) -> None:
+class GoogleSheet(GoogleAuth):
+    def __init__(self, spreadsheet_id: Optional[str] = SAMPLE_SPREADSHEET_ID,):
+        super().__init__()
+        self.spreadsheet_id = spreadsheet_id
+
+
+    @property
+    def _sheet(self):
         """
         Initialise sheet object.
         """
-        try:
-            service = build("sheets", "v4", credentials=self.creds)
-            self.sheet = service.spreadsheets()
-
-        except HttpError as err:
-            print(err)
+        service = build("sheets", "v4", credentials=self.creds)
+        return service.spreadsheets()
 
 
     def get_values(self, range: str):
         """
         Get values from spreadsheet
         """
-        result = (
-            self.sheet.values()
-            .get(spreadsheetId=self.spreadsheet_id, range=range)
-            .execute()
-        )
-        return result.get("values", [])
+        try:
+            result = (
+                self._sheet.values()
+                .get(spreadsheetId=self.spreadsheet_id, range=range)
+                .execute()
+            )
+            return result.get("values", [])
+
+        except HttpError as err:
+            print(err)
+
 
 
 
 if __name__ == "__main__":
     sheet = GoogleSheet()
-    res = sheet.get_values(range=SAMPLE_RANGE_NAME)
-    print(res)
+    all_dates = sheet.get_values(range=SAMPLE_RANGE_NAME)
+

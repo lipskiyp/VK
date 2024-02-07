@@ -27,6 +27,7 @@ async def main():
     ))
 
     ss = VKStatsResponseMapper.vk_stats_to_ss(res)
+    print(ss)
 
 
 if __name__ == "__main__":
