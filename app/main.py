@@ -1,9 +1,16 @@
 import asyncio
 
-from vk.config import config
-from vk.schemas.stats import VKStatsGetRequest, VKStatsGetResponse
+from configs import vk_config
+from vk.schemas.stats import VKStatsGetRequest
 from vk.interface import VK
 from vk.mappers import VKStatsResponseMapper
+
+from sheets import GoogleSheet
+
+
+# The ID and range of a sample spreadsheet.
+SAMPLE_SPREADSHEET_ID = ""
+SAMPLE_RANGE_NAME = "Паблик!B17:B"
 
 
 #group_id=224242420
@@ -14,10 +21,9 @@ app_id=51832179
 
 async def main():
     vk = VK(
-        user_token=config.VK_USER_TOKEN,
-        group_token=config.VK_GROUP_TOKEN
+        user_token=vk_config.VK_USER_TOKEN,
+        group_token=vk_config.VK_GROUP_TOKEN
     )
-
 
     res = await vk.stats.get_stats(request=VKStatsGetRequest(
         group_id=group_id,
@@ -27,7 +33,11 @@ async def main():
     ))
 
     ss = VKStatsResponseMapper.vk_stats_to_ss(res)
-    print(ss)
+
+    sheet = GoogleSheet(spreadsheet_id=SAMPLE_SPREADSHEET_ID)
+    all_dates = sheet.get_values(range=SAMPLE_RANGE_NAME)
+
+    print(all_dates)
 
 
 if __name__ == "__main__":

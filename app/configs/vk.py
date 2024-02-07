@@ -28,4 +28,4 @@ class VKConfig(BaseSettings):
     VK_API_AUTH_REDIRECT_URL: str = environ.get("VK_API_AUTH_REDIRECT_URL", "https://oauth.vk.com/blank.html")
 
 
-config = VKConfig()
+vk_config = VKConfig()

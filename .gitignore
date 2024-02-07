@@ -6,6 +6,7 @@ pgdata/
 postgresql-test/
 .venv
 .vk
+.sheets
 credentials.json
 
 # Byte-compiled / optimized / DLL files

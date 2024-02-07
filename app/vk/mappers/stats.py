@@ -4,8 +4,8 @@ VK Group Stats response mappers.
 
 from typing import Any
 
-from vk.utils import DatesUtil
 import vk.schemas.stats as schemas
+from vk.utils import DatesUtil
 
 
 class VKStatsResponseMapper:

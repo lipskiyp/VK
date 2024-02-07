@@ -5,7 +5,7 @@ Base VK API interface.
 from abc import ABC
 from typing import Optional
 
-from vk.config import config
+from configs import vk_config
 from vk._requests import Request
 
 
@@ -13,10 +13,10 @@ class _Base(ABC):
     """
     Base VK API interface.
     """
-    VK_API_VERSION = config.VK_API_VERSION
-    VK_API_BASE_URL = config.VK_API_BASE_URL
-    VK_API_AUTH_URL = config.VK_API_AUTH_URL
-    VK_API_AUTH_REDIRECT_URL = config.VK_API_AUTH_REDIRECT_URL
+    VK_API_VERSION = vk_config.VK_API_VERSION
+    VK_API_BASE_URL = vk_config.VK_API_BASE_URL
+    VK_API_AUTH_URL = vk_config.VK_API_AUTH_URL
+    VK_API_AUTH_REDIRECT_URL = vk_config.VK_API_AUTH_REDIRECT_URL
 
     def __init__(
         self, user_token: Optional[str] = None, group_token: Optional[str] = None
