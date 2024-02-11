@@ -22,8 +22,10 @@ class Auth(_Base):
     ):
         super().__init__(user_token, group_token)
 
+
+    @classmethod
     def get_user_authorization_url(
-        self, app_id: str, response_type: str, scope: Optional[str] = None, **kwargs: dict[str, str]
+        cls, app_id: str, response_type: str = "token", scope: Optional[str] = None, **kwargs: dict[str, str]
     ) -> str:
         """
         Returns url for user authentication.
@@ -31,12 +33,13 @@ class Auth(_Base):
         :param response_type: "token" | "key"
         """
         if not scope: scope = BASE_SCOPE
-        _url = f"{self.VK_API_AUTH_URL}/{self.authorize}/?client_id={app_id}&redirect_uri={self.VK_API_AUTH_REDIRECT_URL}&display=page&response_type={response_type}&scope={scope}"
+        _url = f"{cls.VK_API_AUTH_URL}/{cls.authorize}/?client_id={app_id}&redirect_uri={cls.VK_API_AUTH_REDIRECT_URL}&display=page&response_type={response_type}&scope={scope}"
         return URL.kwargs_to_query_params(_url, **kwargs)
 
 
+    @classmethod
     def get_group_authorization_url(
-        self, app_id: str, group_ids: str, response_type: str, scope: Optional[str] = None, **kwargs: dict[str, str]
+        cls, app_id: str, group_ids: str, response_type: str = "token", scope: Optional[str] = None, **kwargs: dict[str, str]
     ) -> str:
         """
         Returns url for group authentication.
@@ -44,5 +47,5 @@ class Auth(_Base):
         :param response_type: "token" | "key"
         """
         if not scope: scope = BASE_SCOPE
-        _url = f"{self.VK_API_AUTH_URL}/{self.authorize}/?client_id={app_id}&group_ids={group_ids}&redirect_uri={self.VK_API_AUTH_REDIRECT_URL}&display=page&response_type={response_type}&scope={scope}"
+        _url = f"{cls.VK_API_AUTH_URL}/{cls.authorize}/?client_id={app_id}&group_ids={group_ids}&redirect_uri={cls.VK_API_AUTH_REDIRECT_URL}&display=page&response_type={response_type}&scope={scope}"
         return URL.kwargs_to_query_params(_url, **kwargs)

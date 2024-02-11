@@ -16,9 +16,9 @@ class VKStatsResponseMapper:
     @classmethod
     def vk_stats_to_ss(
         cls, response: schemas.VKStatsGetResponse
-    ) -> dict[str, Any]:
+    ) -> dict[str, tuple[Any]]:
         """
-        Map VKStatsGetResponse to spreadsheet format.
+        Map VKStatsGetResponse to spreadsheet row.
         """
         res = {}  # results hashed by date
         for period in response.response:
@@ -33,7 +33,7 @@ class VKStatsResponseMapper:
             comments = period.activity.comments
             likes = period.activity.likes
 
-            values = [
+            values = (
                 reach_sub,  # Reach sub
                 reach_vir,  # Reach vir
                 "",
@@ -44,7 +44,7 @@ class VKStatsResponseMapper:
                 copies,  # Рассказали друзьям
                 comments,  # Комментарии
                 likes,  # Нравится
-            ]
+            )
 
             res[period_from] = values
 
