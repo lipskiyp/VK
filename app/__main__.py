@@ -45,7 +45,7 @@ async def main():
     ranges, values = [], []
     for date, row in stats.items():
         if [date] in all_dates:
-            i = all_dates.index([date]) + 1  # NB sheet start with 1
+            i = all_dates.index([date]) + 1  # NB sheet rows start with 1
             ranges.append(f"Паблик!C{i}:L{i}")
             values.append(row)
 
