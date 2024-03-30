@@ -67,9 +67,9 @@ class Reach(BaseModel):
     countries: Optional[List[Country]] = []
     sex: Optional[List[Sex]] = []
     sex_age: Optional[List[SexAge]] = []
-    mobile_reach: int
-    reach: int
-    reach_subscribers: int
+    mobile_reach: Optional[int] = None
+    reach: Optional[int] = None
+    reach_subscribers: Optional[int] = None
 
 
 class Visitors(BaseModel):
@@ -78,15 +78,15 @@ class Visitors(BaseModel):
     countries: Optional[List[Country]] = []
     sex: Optional[List[Sex]] = []
     sex_age: Optional[List[SexAge]] = []
-    mobile_views: int
-    views: int
-    visitors: int
+    mobile_views: Optional[int] = None
+    views: Optional[int] = None
+    visitors: Optional[int] = None
 
 
 class Stats(BaseModel):
-    activity: Optional[Activity] = []
-    reach: Optional[Reach] = []
-    visitors: Optional[Visitors] = []
+    activity: Optional[Activity] = Activity()
+    reach: Optional[Reach] = Reach()
+    visitors: Optional[Visitors] = Visitors()
     period_from: int
     period_to: int
 

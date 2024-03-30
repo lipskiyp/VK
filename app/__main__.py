@@ -10,7 +10,7 @@ from vk.schemas.stats import VKStatsGetRequest
 
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = ""
+SAMPLE_SPREADSHEET_ID = "1O2p0FadRRnJsZdowcILvczACZlvu1_eEQ0QU9BRvm7g"
 DATES_RANGE = "Паблик!B:B"
 
 
@@ -20,7 +20,7 @@ app_id=51832179
 
 
 async def main():
-    # Initiate VK API inreface
+    # Initiate VK API interface
     vk = VK(
         user_token=vk_config.VK_USER_TOKEN,
         group_token=vk_config.VK_GROUP_TOKEN
@@ -32,8 +32,8 @@ async def main():
     # Collect stats data from VK
     _stats = await vk.stats.get_stats(request=VKStatsGetRequest(
         group_id=group_id,
-        timestamp_from=mktime(datetime.fromisoformat("2022-01-02+03:00").timetuple()),  # Will start on previous day
-        timestamp_to=mktime(datetime.fromisoformat("2022-02-28+03:00").timetuple()),
+        timestamp_from=mktime(datetime.fromisoformat("2022-02-02+03:00").timetuple()),  # Will start on previous day
+        timestamp_to=mktime(datetime.fromisoformat("2022-03-01+03:00").timetuple()),
         interval="day"
     ))
     stats = VKStatsResponseMapper.vk_stats_to_ss(_stats)
